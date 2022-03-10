@@ -6,6 +6,15 @@ __pycache__/
 # C extensions
 *.so
 
+# Specific to DirectVoxGO
+**/.ipynb_checkpoints
+**/__pycache__
+*.npy
+*.npz
+*.dae
+data
+logs
+
 # Distribution / packaging
 .Python
 build/
