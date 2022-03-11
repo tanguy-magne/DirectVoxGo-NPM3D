@@ -2,6 +2,8 @@ import numpy as np
 import os, imageio
 import torch
 import glob
+from skimage.transform import rescale, resize
+from skimage.io import imsave
 
 ########## Slightly modified version of LLFF data loading code
 ##########  see https://github.com/Fyusion/LLFF for original
@@ -55,10 +57,10 @@ def _minify(basedir, factors=[], resolutions=[]):
     for r in factors + resolutions:
         if isinstance(r, int):
             name = 'images_{}'.format(r)
-            resizearg = '{}%'.format(100./r)
+            resizearg = 1./r
         else:
             name = 'images_{}x{}'.format(r[1], r[0])
-            resizearg = '{}x{}'.format(r[1], r[0])
+            resizearg = (r[1], r[0])
         imgdir = os.path.join(basedir, name)
         if os.path.exists(imgdir):
             continue
@@ -68,15 +70,20 @@ def _minify(basedir, factors=[], resolutions=[]):
         os.makedirs(imgdir)
         check_output('cp {}/* {}'.format(imgdir_orig, imgdir), shell=True)
 
-        ext = imgs[0].split('.')[-1]
-        args = ' '.join(['mogrify', '-resize', resizearg, '-format', 'png', '*.{}'.format(ext)])
-        print(args)
-        os.chdir(imgdir)
-        check_output(args, shell=True)
-        os.chdir(wd)
+        ext = '.' + imgs[0].split('.')[-1]
+        all_images_files = glob.glob(f"{imgdir}/*{ext}")
 
-        if ext != 'png':
-            check_output('rm {}/*.{}'.format(imgdir, ext), shell=True)
+        for image_path in all_images_files:
+            im = imread(image_path)
+            if isinstance(resizearg, int):
+                resized_im = rescale(im, r, multichannel=True, order=3, preserve_range=True, anti_aliasing=True)
+            else:
+                resized_im = resize(im, r, order=3, preserve_range=True, anti_aliasing=True)
+            resized_im = resized_im.astype(np.uint8)
+            imsave(f"{image_path.split(ext)[0]}.png", resized_im)
+
+        if ext != '.png':
+            check_output('rm {}/*{}'.format(imgdir, ext), shell=True)
             print('Removed duplicates')
         print('Done')
 
