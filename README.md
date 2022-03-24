@@ -19,6 +19,25 @@ This repository is an extension of the original article repository. It contains 
 
 In addition to this folder, this repository contains a notebook `colab_DirectVoxGO.ipynb` that allows to run experiments on colab.
 
+## Results
+
+Here are some results obtained.
+
+### Robot scene from NSVF-Synthetic dataset
+
+https://user-images.githubusercontent.com/91187810/159984751-1f97c950-5a9c-4784-8cd0-c463ded0034c.mp4
+
+Left : Ground Truth | Middle : Results using pre-activation | Right : Results using post-activation
+
+### Custom forward facing scene
+
+https://user-images.githubusercontent.com/91187810/159985003-d9d85f49-e5b4-46da-9ae1-ae3a7708a717.mp4
+Here the results seems really good.
+
+https://user-images.githubusercontent.com/91187810/159985017-5be21c6d-5823-4568-a402-c8ce5b5faeaa.mp4
+However here, the results are not so good, because the range of viewpoints is too important.
+
+
 ## References
 
 [1] Cheng Sun, Min Sun, and Hwann-Tzong Chen. Direct voxel grid optimization: Super-fast convergence for radiance fields reconstruction. *arXiv preprint arXiv:2111.11215*, 2021.
