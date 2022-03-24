@@ -220,9 +220,14 @@ class DirectMPIGO(torch.nn.Module):
             ray_id = ray_id[mask]
             step_id = step_id[mask]
 
+        # # query for alpha w/ pre-activation
+        # density_activated = self.activate_density(self.density, interval)
+        # alpha = self.grid_sampler(ray_pts, density_activated)
+
         # query for alpha w/ post-activation
         density = self.grid_sampler(ray_pts, self.density)
         alpha = self.activate_density(density, interval)
+
         if self.fast_color_thres > 0:
             mask = (alpha > self.fast_color_thres)
             ray_pts = ray_pts[mask]
