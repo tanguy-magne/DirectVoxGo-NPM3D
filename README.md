@@ -2,6 +2,8 @@
 
 Ths repository contains the work I have produced for the project of the Point Clouds and 3D Modeling course from MVA master. For this project I worked on the article *Direct Voxel Grid Optimization:Super-fast Convergence for Radiance Fields Reconstruction* [1], understanding it in details and experimenting on the different hyperparameters.
 
+To run the code, simply open the notebook `colab_DirectVoxGO.ipynb` on colab.
+
 ## Structure of the repository
 
 This repository is an extension of the original article repository. It contains the repository with some modification in the folder DirectVoxGO. The structure of the FirectVoxGO folder is the following :
